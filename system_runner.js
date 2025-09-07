@@ -1,5 +1,6 @@
-const canvasWidth = 540;
-const canvasHeight = 960;
+//const canvasWidth = 1980;
+//const canvasHeight = 1080;
+
 
 
 let mainCanvas;
@@ -49,12 +50,14 @@ let volumes = [];
 let volume_length = 0;
 
 function setup() {
-  main_canvas = createCanvas(canvasWidth, canvasHeight);
+  main_canvas = createCanvas(windowWidth, windowHeight);
   main_canvas.parent('canvasContainer');
   song = loadSound('song.mp3', songLoaded, songLoadedError, songLoadedSoFar);  
   
+  colorMode(HSB, 360, 100, 100);
+
   frameRate(60);
-  angleMode(DEGREES);
+  angleMode(RADIANS);
 
   // create text inputs
   textInput = createInput('words...');
