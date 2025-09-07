@@ -41,3 +41,4 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
    textSize(vocal);
    text(words, width/2, height/3);
 }
+

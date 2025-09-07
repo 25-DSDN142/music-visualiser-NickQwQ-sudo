@@ -1,59 +1,61 @@
-let last_words = "";
-let last_words_opacity = 0;
+
 
 function draw_one_frame(words, vocal, drum, bass, other,counter) {
-  background(255,236,180); // cream
-  fill(244,161,39); // orange
-
-  let stripeWidth = map(other, 40, 100, 40, 80, true);
-
-  let numStripes = height / stripeWidth;
-  for(let i=0; i<numStripes; i=i+2) {
-    let cury = map(i, 0, numStripes-1, 0, height);
-    rect(0, cury, width, stripeWidth);
-  }
-
-  let triangleHeight = map(bass, 40, 100, 200, 550, true);
-  fill(117,200,174); // teal
-  for(let i=0; i<3; i++) {
-    let cur_x = map(i, 0, 4, 0, width);
-    let next_x = map(i+1, 0, 3, 0, width);
-    let mid_x = (cur_x + next_x) / 2.0;
-    //let cur_y = 4 * height / 5;
-    let cur_y = height 
-    triangle(cur_x, cur_y, mid_x, cur_y - triangleHeight, next_x, cur_y);
-  }
-
-
-  let drumSize = map(drum, 30, 100, 30, 300, true);
-  fill(90,61,43); // brown
-  rect(0, 0, drumSize, drumSize);
-  rect(width, 0, -drumSize, drumSize);
-  rect(0, height, drumSize, -drumSize);
-  rect(width, height, -drumSize, -drumSize);
-
-  let ovalPlace = map(vocal, 20, 100, height-50, 50, true);
-  let ovalSize = map(vocal, 20, 100, 60, 150, true);
-  fill(229,119,30); // darker orange
-  ellipse(width/2, ovalPlace, ovalSize);
-
-  if(words == "") {
-    last_words_opacity = last_words_opacity * 0.95;
-    words = last_words;
-  }
-  else {
-    last_words_opacity = (1 + last_words_opacity) * 1.1;
-    if(last_words_opacity > 255) {
-      last_words_opacity = 255;
-    }
-  }
-  last_words = words;
-
-  textFont('Georgia');
-  textAlign(CENTER);
-  textStyle(BOLD);
-  textSize(80);
+  background(150, 200, 255);
+  drawMushroomHouse(100, height - 200);
+  fill(255); 
   noStroke();
-  fill(0, 0, 0, int(last_words_opacity));
-  text(words, width/2, height/2);
+  ellipse(100, 100, 60, 60);
+  ellipse(130, 90, 80, 80);
+  ellipse(170, 100, 60, 60);
+
+  ellipse(400, 150, 50, 50);
+  ellipse(430, 140, 70, 70);
+  ellipse(470, 150, 50, 50);
+
+function drawMushroomHouse(x, y) {
+  push();
+  translate(x, y);
+
+  scale(1.8); 
+
+  
+  fill(255);
+  rect(-30, -60, 60, 60, 20);
+
+  
+  fill(150, 75, 0); 
+  rect(-10, -30, 20, 40, 5);
+  fill(255, 215, 0); 
+  ellipse(5, -10, 5, 5);
+
+  
+  fill(220, 0, 0);
+  ellipse(0, -70, 100, 60); 
+
+ 
+  fill(255);
+  ellipse(-25, -75, 15);
+  ellipse(20, -78, 10);
+  ellipse(0, -65, 12);
+
+  pop();
 }
+
+  
+  let grassHeight = 200;  
+fill(76, 175, 80);       
+rect(0, height - grassHeight, width, grassHeight);
+
+
+  let tileSize = 40;
+  for (let x = 0; x < width; x += tileSize) {
+    fill(139, 69, 19);
+    rect(x, height - tileSize, tileSize, tileSize, 8);
+
+    
+    fill(34, 139, 34); 
+    ellipse(x + tileSize / 2, height - grassHeight, tileSize * 0.9, tileSize * 0.3);
+  }
+
+ }
