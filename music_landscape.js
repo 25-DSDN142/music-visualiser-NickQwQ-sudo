@@ -143,6 +143,32 @@ pop();
 
 
 
+push();
+rectMode(CENTER);
+noStroke();
+
+let numBars = 25; 
+
+
+for (let i = 0; i < numBars; i++) {
+  let barHeight = map(bass, 0, 100, 10, 300) + sin(counter*0.1+i)*30;
+  let hue = map(i, 0, numBars, 0, 360); 
+  fill(hue, 100, 100);
+  rect(50 + i*10, height - barHeight/2, 8, barHeight);
+}
+
+
+for (let i = 0; i < numBars; i++) {
+  let barHeight = map(drum, 0, 100, 10, 300) + cos(counter*0.1+i)*30;
+  let hue = map(i, 0, numBars, 0, 360); 
+  fill(hue, 100, 100);
+  rect(width - (50 + i*10), height - barHeight/2, 8, barHeight);
+}
+
+pop();
+
+
+
 
 
 
