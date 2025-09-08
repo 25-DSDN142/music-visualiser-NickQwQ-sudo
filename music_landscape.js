@@ -52,6 +52,44 @@ colorMode(RGB);
 pop();
 
 
+push();
+translate(width / 2, height / 2);
+noFill();
+strokeWeight(2);
+
+let points = 180;
+
+
+stroke(180, 100, 255, 150); 
+beginShape();
+let baseRadius1 = 300;
+for (let a = 0; a < TWO_PI; a += TWO_PI / points) {
+  let wave = map(drum, 0, 100, 5, 80);
+  let r = baseRadius1 + sin(a * 6 + counter * 0.05) * wave;
+  let x = cos(a) * r;
+  let y = sin(a) * r;
+  vertex(x, y);
+}
+endShape(CLOSE);
+
+
+stroke(100, 255, 200, 120); 
+beginShape();
+let baseRadius2 = 380;  
+for (let a = 0; a < TWO_PI; a += TWO_PI / points) {
+  let wave = map(drum, 0, 100, 5, 120); 
+  let r = baseRadius2 + cos(a * 8 + counter * 0.07) * wave; 
+  let x = cos(a) * r;
+  let y = sin(a) * r;
+  vertex(x, y);
+}
+endShape(CLOSE);
+
+pop();
+
+
+
+
 
 
 
