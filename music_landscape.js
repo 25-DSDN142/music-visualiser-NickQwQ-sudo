@@ -16,6 +16,26 @@ for (let i = 0; i < 200; i++) {
 }
 
 
+push();
+translate(width/2, height/2);
+noStroke();
+fill(255, 100, 150, 70); 
+beginShape();
+let pointsBg = 180;
+let baseRadiusBg = 250;
+
+for (let a = 0; a < TWO_PI; a += TWO_PI / pointsBg) {
+  
+  let wave = map(vocal, 0, 100, 20, 150);
+  let r = baseRadiusBg + sin(a * 6 + counter * 0.15) * wave;
+  let x = cos(a) * r;
+  let y = sin(a) * r;
+  vertex(x, y);
+}
+endShape(CLOSE);
+pop();
+
+
 
 push();
 translate(width / 2, height / 2);
@@ -85,7 +105,22 @@ for (let a = 0; a < TWO_PI; a += TWO_PI / points) {
 }
 endShape(CLOSE);
 
+
+
+stroke(255, 200, 100, 120); 
+beginShape();
+let baseRadius3 = 440;  
+for (let a = 0; a < TWO_PI; a += TWO_PI / points) {
+  let wave = map(drum, 0, 100, 5, 100);  
+  let r = baseRadius3 + sin(a * 5 + counter * 0.03) * wave;
+  let x = cos(a) * r;
+  let y = sin(a) * r;
+  vertex(x, y);
+}
+endShape(CLOSE);
+
 pop();
+
 
 
 
