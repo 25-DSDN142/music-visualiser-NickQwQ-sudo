@@ -44,6 +44,7 @@ function songLoadedSoFar(soFar) {
 function preload() {
   table = loadTable('volumes.csv', 'csv');
   words = loadStrings('words.txt');
+  orbitronFont = loadFont('fonts/Orbitron-VariableFont_wght.ttf');
 }
 
 let volumes = [];

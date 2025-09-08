@@ -168,11 +168,22 @@ for (let i = 0; i < numBars; i++) {
 pop();
 
 
+push();
+textFont(orbitronFont);   
+textSize(80);
+textAlign(RIGHT, TOP);
+stroke(255);              
+strokeWeight(2);
+noFill();                 
 
+let now = new Date();
+let h = nf(now.getHours(), 2);
+let m = nf(now.getMinutes(), 2);
+let s = nf(now.getSeconds(), 2);
+let timeString = h + ":" + m + ":" + s;
 
-
-
-
+text(timeString, width - 40, 40);
+pop();
 
 }
 
