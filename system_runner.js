@@ -54,7 +54,7 @@ function setup() {
   main_canvas.parent('canvasContainer');
   song = loadSound('song.mp3', songLoaded, songLoadedError, songLoadedSoFar);  
   
-  colorMode(HSB, 360, 100, 100);
+  colorMode(HSB, 360, 100, 100, 100, 100);
 
   frameRate(60);
   angleMode(RADIANS);

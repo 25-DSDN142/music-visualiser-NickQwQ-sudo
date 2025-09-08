@@ -19,7 +19,7 @@ for (let i = 0; i < 200; i++) {
 push();
 translate(width/2, height/2);
 noStroke();
-fill(255, 100, 150, 70); 
+fill(0, 80, 90, 40); 
 beginShape();
 let pointsBg = 180;
 let baseRadiusBg = 250;
@@ -34,6 +34,26 @@ for (let a = 0; a < TWO_PI; a += TWO_PI / pointsBg) {
 }
 endShape(CLOSE);
 pop();
+
+
+push();
+translate(width/2, height/2);
+noStroke();
+fill(30, 100, 100, 60);  
+beginShape();
+let pointsOrange = 180;
+let baseRadiusOrange = 200;
+
+for (let a = 0; a < TWO_PI; a += TWO_PI / pointsOrange) {
+  let wave = map(drum, 0, 100, 10, 70); 
+  let r = baseRadiusOrange + sin(a * 8 + counter * 0.04) * wave;
+  let x = cos(a) * r;
+  let y = sin(a) * r;
+  vertex(x, y);
+}
+endShape(CLOSE);
+pop();
+
 
 
 
