@@ -5,7 +5,7 @@ function draw_one_frame(words, vocal, drum, bass, other,counter) {
   background(0);
 
 
-
+// Stars background
 for (let i = 0; i < 200; i++) {
   let x = noise(i, counter * 0.01) * width;
   let y = noise(i + 1000, counter * 0.01) * height;
@@ -15,7 +15,7 @@ for (let i = 0; i < 200; i++) {
   ellipse(x, y, 1.5, 1.5);
 }
 
-
+// circle waves
 push();
 translate(width/2, height/2);
 noStroke();
@@ -147,11 +147,11 @@ push();
 rectMode(CENTER);
 noStroke();
 
-let numBars = 25; 
+let numBars = 25; // number of bars on each side
 
 
 for (let i = 0; i < numBars; i++) {
-  let barHeight = map(bass, 0, 100, 10, 300) + sin(counter*0.1+i)*30;
+  let barHeight = map(bass, 0, 100, 10, 300) + sin(counter*0.1+i)*30; 
   let hue = map(i, 0, numBars, 0, 360); 
   fill(hue, 100, 100);
   rect(50 + i*10, height - barHeight/2, 8, barHeight);
@@ -167,19 +167,19 @@ for (let i = 0; i < numBars; i++) {
 
 pop();
 
-
+// Time display
 push();
 textFont(orbitronFont);   
-textSize(80);
-textAlign(RIGHT, TOP);
-stroke(255);              
+textSize(80);  // font size
+textAlign(RIGHT, TOP);   
+stroke(255);    // white stroke          
 strokeWeight(2);
-noFill();                 
+noFill();           // no fill      
 
 let now = new Date();
-let h = nf(now.getHours(), 2);
-let m = nf(now.getMinutes(), 2);
-let s = nf(now.getSeconds(), 2);
+let h = nf(now.getHours(), 2);  //hours
+let m = nf(now.getMinutes(), 2);  //minutes
+let s = nf(now.getSeconds(), 2);  //seconds
 let timeString = h + ":" + m + ":" + s;
 
 text(timeString, width - 40, 40);
