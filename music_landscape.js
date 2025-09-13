@@ -1,59 +1,190 @@
-let last_words = "";
-let last_words_opacity = 0;
+let rotationAngle = 0;
+
 
 function draw_one_frame(words, vocal, drum, bass, other,counter) {
-  background(255,236,180); // cream
-  fill(244,161,39); // orange
-
-  let stripeWidth = map(other, 40, 100, 40, 80, true);
-
-  let numStripes = height / stripeWidth;
-  for(let i=0; i<numStripes; i=i+2) {
-    let cury = map(i, 0, numStripes-1, 0, height);
-    rect(0, cury, width, stripeWidth);
-  }
-
-  let triangleHeight = map(bass, 40, 100, 200, 550, true);
-  fill(117,200,174); // teal
-  for(let i=0; i<3; i++) {
-    let cur_x = map(i, 0, 4, 0, width);
-    let next_x = map(i+1, 0, 3, 0, width);
-    let mid_x = (cur_x + next_x) / 2.0;
-    //let cur_y = 4 * height / 5;
-    let cur_y = height 
-    triangle(cur_x, cur_y, mid_x, cur_y - triangleHeight, next_x, cur_y);
-  }
+  background(0);
 
 
-  let drumSize = map(drum, 30, 100, 30, 300, true);
-  fill(90,61,43); // brown
-  rect(0, 0, drumSize, drumSize);
-  rect(width, 0, -drumSize, drumSize);
-  rect(0, height, drumSize, -drumSize);
-  rect(width, height, -drumSize, -drumSize);
-
-  let ovalPlace = map(vocal, 20, 100, height-50, 50, true);
-  let ovalSize = map(vocal, 20, 100, 60, 150, true);
-  fill(229,119,30); // darker orange
-  ellipse(width/2, ovalPlace, ovalSize);
-
-  if(words == "") {
-    last_words_opacity = last_words_opacity * 0.95;
-    words = last_words;
-  }
-  else {
-    last_words_opacity = (1 + last_words_opacity) * 1.1;
-    if(last_words_opacity > 255) {
-      last_words_opacity = 255;
-    }
-  }
-  last_words = words;
-
-  textFont('Georgia');
-  textAlign(CENTER);
-  textStyle(BOLD);
-  textSize(80);
+// Stars background
+for (let i = 0; i < 200; i++) {
+  let x = noise(i, counter * 0.01) * width;
+  let y = noise(i + 1000, counter * 0.01) * height;
+  let alpha = map(sin(counter * 0.05 + i), -1, 1, 50, 255);
   noStroke();
-  fill(0, 0, 0, int(last_words_opacity));
-  text(words, width/2, height/2);
+  fill(255, alpha);
+  ellipse(x, y, 1.5, 1.5);
 }
+
+// circle waves
+push();
+translate(width/2, height/2);
+noStroke();
+fill(0, 80, 90, 40); 
+beginShape();
+let pointsBg = 180;
+let baseRadiusBg = 250;
+
+for (let a = 0; a < TWO_PI; a += TWO_PI / pointsBg) {
+  
+  let wave = map(vocal, 0, 100, 20, 150);
+  let r = baseRadiusBg + sin(a * 6 + counter * 0.15) * wave;
+  let x = cos(a) * r;
+  let y = sin(a) * r;
+  vertex(x, y);
+}
+endShape(CLOSE);
+pop();
+
+
+push();
+translate(width/2, height/2);
+noStroke();
+fill(30, 100, 100, 60);  
+beginShape();
+let pointsOrange = 180;
+let baseRadiusOrange = 200;
+
+for (let a = 0; a < TWO_PI; a += TWO_PI / pointsOrange) {
+  let wave = map(drum, 0, 100, 10, 70); 
+  let r = baseRadiusOrange + sin(a * 8 + counter * 0.04) * wave;
+  let x = cos(a) * r;
+  let y = sin(a) * r;
+  vertex(x, y);
+}
+endShape(CLOSE);
+pop();
+
+
+
+
+push();
+translate(width / 2, height / 2);
+
+let numRays = 180;
+let baseRadius = 120;
+strokeWeight(2);
+colorMode(HSB, 360, 100, 100);
+
+if (counter > 0) {
+  rotationAngle += 0.01; 
+}
+rotate(rotationAngle);
+
+for (let i = 0; i < numRays; i++) {
+  let angle = (TWO_PI / numRays) * i;
+
+  
+  let wave = map(bass, 0, 100, 0, 80);
+  let dynamicRadius = baseRadius + wave * (0.5 + sin(i * 0.3 + counter * 0.15));
+
+  let x = cos(angle) * dynamicRadius;
+  let y = sin(angle) * dynamicRadius;
+
+  stroke(map(i, 0, numRays, 0, 360), 80, 100);
+  line(0, 0, x, y);
+
+  let alpha = map(drum, 0, 100, 30, 100);  
+  stroke(map(i, 0, numRays, 0, 360), 80, 100, alpha);
+  line(0, 0, x, y);
+}
+
+colorMode(RGB);
+pop();
+
+
+push();
+translate(width / 2, height / 2);
+noFill();
+strokeWeight(2);
+
+let points = 180;
+
+
+stroke(180, 100, 255, 150); 
+beginShape();
+let baseRadius1 = 300;
+for (let a = 0; a < TWO_PI; a += TWO_PI / points) {
+  let wave = map(drum, 0, 100, 5, 80);
+  let r = baseRadius1 + sin(a * 6 + counter * 0.05) * wave;
+  let x = cos(a) * r;
+  let y = sin(a) * r;
+  vertex(x, y);
+}
+endShape(CLOSE);
+
+
+stroke(100, 255, 200, 120); 
+beginShape();
+let baseRadius2 = 380;  
+for (let a = 0; a < TWO_PI; a += TWO_PI / points) {
+  let wave = map(drum, 0, 100, 5, 120); 
+  let r = baseRadius2 + cos(a * 8 + counter * 0.07) * wave; 
+  let x = cos(a) * r;
+  let y = sin(a) * r;
+  vertex(x, y);
+}
+endShape(CLOSE);
+
+
+// 
+stroke(255, 200, 100, 120); 
+beginShape();
+let baseRadius3 = 440;  
+for (let a = 0; a < TWO_PI; a += TWO_PI / points) {
+  let wave = map(drum, 0, 100, 5, 100);  
+  let r = baseRadius3 + sin(a * 5 + counter * 0.03) * wave;
+  let x = cos(a) * r;
+  let y = sin(a) * r;
+  vertex(x, y);
+}
+endShape(CLOSE);
+
+pop();
+
+
+
+push();
+rectMode(CENTER);
+noStroke();
+
+let numBars = 25; // number of bars on each side
+
+
+for (let i = 0; i < numBars; i++) {
+  let barHeight = map(bass, 0, 100, 10, 300) + sin(counter*0.1+i)*30; 
+  let hue = map(i, 0, numBars, 0, 360); 
+  fill(hue, 100, 100);
+  rect(50 + i*10, height - barHeight/2, 8, barHeight);
+}
+
+
+for (let i = 0; i < numBars; i++) {
+  let barHeight = map(drum, 0, 100, 10, 300) + cos(counter*0.1+i)*30;
+  let hue = map(i, 0, numBars, 0, 360); 
+  fill(hue, 100, 100);
+  rect(width - (50 + i*10), height - barHeight/2, 8, barHeight);
+}
+
+pop();
+
+// Time display
+push();
+textFont(orbitronFont);   
+textSize(80);  // font size
+textAlign(RIGHT, TOP);   
+stroke(255);    // white stroke          
+strokeWeight(2);
+noFill();           // no fill      
+
+let now = new Date();
+let h = nf(now.getHours(), 2);  //hours
+let m = nf(now.getMinutes(), 2);  //minutes
+let s = nf(now.getSeconds(), 2);  //seconds
+let timeString = h + ":" + m + ":" + s;
+
+text(timeString, width - 40, 40);
+pop();
+
+}
+
+

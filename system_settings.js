@@ -3,3 +3,5 @@
 const smoothing = 25;
 // debugFastRefresh can be set to true to go straight to the song
 const debugFastRefresh = true;
+
+
