@@ -126,7 +126,7 @@ for (let a = 0; a < TWO_PI; a += TWO_PI / points) {
 endShape(CLOSE);
 
 
-
+// 
 stroke(255, 200, 100, 120); 
 beginShape();
 let baseRadius3 = 440;  
